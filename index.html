@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h2, h3 {
+    text-align: center;
+    color: #444;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, select, button {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+select {
+    width: 99%;
+}
+
+input[type="number"] {
+    width: 50px;
+}
+
+table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+thead {
+    background-color: #f0f0f0;
+}
+
+button {
+    margin: 10px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:last-child {
+    background-color: #6c757d;
+}
+
+button:last-child:hover {
+    background-color: #5a6268;
+}
+@media (max-width: 768px) {
+    table {
+        font-size: 12px;
+        overflow-x: auto;
+        display: block;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+
+    input[type="number"] {
+        width: 70px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    form {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    table {
+        font-size: 10px;
+    }
+
+    th, td {
+        padding: 5px;
+    }
+
+    input[type="number"] {
+        width: 60px;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    form {
+        width: 100%;
+        padding: 10px;
+    }
+}
+@media print {
+    body * {    
+        visibility: hidden;
+    }
+    #certificado, #certificado * {
+        visibility: visible;
+    }
+    #certificado {
+        display: block;
+        margin: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    * {
+        margin: 0px;
+        white-space: nowrap
+    }
+    @page {
+        margin: 0;
+}
+}
+</style>
+    <link rel="shortcut icon" href="clara.ico" type="image/x-icon">
+    <title>Arcoverde CLARA</title>
+    <script>
+        function printCertificate() {
+            const form = document.getElementById('certificadoForm');
+            if (!form.checkValidity()) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+
+    var nome = document.getElementById('nome').value;
+    var os = document.getElementById('os').value;
+    var codigopedido = document.getElementById('codigopedido').value;
+    var nomeLente = document.getElementById('nomeLente').value;
+    var sensity = document.getElementById('sensity').value;
+    var material = document.getElementById('material').value;
+    var tratamento = document.getElementById('tratamento').value;
+    var esfericoOD = (parseFloat(document.getElementById('esfericoOD').value) || 0).toFixed(2);
+    var cilindricoOD = (parseFloat(document.getElementById('cilindricoOD').value) || 0).toFixed(2);
+    var eixoOD = document.getElementById('eixoOD').value || '0';
+    var dnpOD = (parseFloat(document.getElementById('dnpOD').value) || 0).toFixed(1);
+    var addOD = (parseFloat(document.getElementById('addOD').value) || 0).toFixed(2);
+    var coOD = document.getElementById('coOD').value;
+    var esfericoOE = (parseFloat(document.getElementById('esfericoOE').value) || 0).toFixed(2);
+    var cilindricoOE = (parseFloat(document.getElementById('cilindricoOE').value) || 0).toFixed(2);
+    var eixoOE = document.getElementById('eixoOE').value || '0';
+    var dnpOE = (parseFloat(document.getElementById('dnpOE').value) || 0).toFixed(1);
+    var addOE = (parseFloat(document.getElementById('addOE').value) || 0).toFixed(2);
+    var coOE = document.getElementById('coOE').value;
+    var medico = document.getElementById('medico').value;
+    var otica = document.getElementById('otica').value;
+    var data = document.getElementById('data').value;
+
+            function formatDate(date) {
+                var partes = date.split("-");
+                return `${partes[2]}/${partes[1]}/${partes[0]}`;
+            }
+
+            var dataFormatada = formatDate(data);
+
+            var certificado = 
+                `<style>
+body.cardbody {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.card {
+  width: 85.6mm;
+  height: 54mm;
+  border: 1px solid #000;
+  border-radius: 4px;
+  padding: 5mm;
+  box-sizing: border-box;
+  background: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 8px;
+}
+
+h1.nome {
+  font-size: 10px;
+  margin: 0;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+p.info, p.lente, p.medico, p.otica, p.data {
+  margin: 4px 0;
+  line-height: 1.2;
+  text-align: center;
+}
+
+table.cardtable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 5px;
+  font-size: 8px;
+  display: table;
+}
+
+table th.cardth, table td.cardtd {
+  border: 1px solid #000;
+  padding: 2px;
+  text-align: center;
+}
+
+table th.cardth {
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+.medico {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.otica {
+  margin-top: 5px;
+}
+
+.data {
+  margin-top: 10px;
+}
+</style>
+</head>
+<body class="cardbody">
+    <div class="card">
+      <h1 class="nome">${nome}</h1>
+      <p class="info">${os} | ${codigopedido}</p>
+      <p class="lente">${nomeLente} ${material} ${tratamento} ${sensity !== "NÃO" ? sensity : ""}</p>
+      <table class="cardtable">
+        <thead>
+          <tr>
+            <th class="cardth"></th>
+            <th class="cardth">ESF</th>
+            <th class="cardth">CIL</th>
+            <th class="cardth">EIXO</th>
+            <th class="cardth">DNP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cardtd">OD</td>
+            <td class="cardtd">${esfericoOD}</td>
+            <td class="cardtd">${cilindricoOD}</td>
+            <td class="cardtd">${eixoOD}</td>
+            <td class="cardtd">${dnpOD}</td>
+          </tr>
+          <tr>
+            <td class="cardtd">OE</td>
+            <td class="cardtd">${esfericoOE}</td>
+            <td class="cardtd">${cilindricoOE}</td>
+            <td class="cardtd">${eixoOE}</td>
+            <td class="cardtd">${dnpOE}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="cardtable">
+        <thead>
+          <tr>
+            <th class="cardth">ADD</th>
+            <th class="cardth">CO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cardtd">${addOD}</td>
+            <td class="cardtd">${coOD}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="medico">${medico ? `DR(A). ${medico}` : ''}</p>
+      <p class="otica">ÓTICA ${otica}</p>
+      <p class="data">DATA: ${dataFormatada}</p>
+    </div>
+  </body>`;
+
+            document.getElementById('certificado').innerHTML = certificado;
+
+            document.getElementById('certificado').style.display = 'block';
+
+            window.print();
+
+            document.getElementById('certificado').style.display = 'none';
+        }
+
+        function setDefaultDate() {
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementById('data').value = today;
+        }
+
+        window.onload = setDefaultDate;
+
+    </script>
+</head>
+<body>
+    <div>
+        <h2>Formulário de Certificado de Garantia</h2>
+        <form id="certificadoForm">
+            <div class="form-group">
+                <label for="os">Ordem de serviço:</label>
+                <input type="text" id="os" placeholder="Digite a ordem de serviço" max="99999" required>
+            </div>
+
+            <div class="form-group">
+                <label for="codigopedido">Codigo do pedido:</label>
+                <input type="text" id="codigopedido" placeholder="Digite o codigo do pedido" max="99999999" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nome">Nome do Cliente:</label>
+                <input type="text" id="nome" placeholder="Digite o nome do cliente" pattern="[A-Za-zÀ-ÿ\s]+" maxlength="27" required>
+            </div>
+            <div class="form-group">
+                <label for="nomeLente">Nome da Lente:</label>
+                <select id="nomeLente">
+                    <option value="CLARA">Clara</option>
+                    <option value="CLARA PREMIUM">Clara Premium</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sensity">Possui Sensity:</label>
+                <select id="sensity">
+                    <option value="NÃO">Não</option>
+                    <option value="SENSITY2 CINZA">Sensity2</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="material">Material:</label>
+                <select id="material">
+                    <option value="150">1.50</option>
+                    <option value="TRIVEX">Trivex</option>
+                    <option value="POLI">Poli</option>
+                    <option value="167">1.67</option>
+                    <option value="174">1.74</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tratamento">Tratamento:</label>
+                <select id="tratamento">
+                    <option value="ECO CLEAN">Cleanextra</option>
+                    <option value="ECO FORTIS">No risk</option>
+                    <option value="ECO FORTIS BLUE">No risk + bluecontrol</option>
+                    <option value="ECO BLUE">Bluecontrol</option>
+                    <option value="ECO INFINITY">Longlife</option>
+                </select>
+            </div>
+            <h3>Inserir Grau</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>ESF</th>
+                        <th>CIL</th>
+                        <th>EI</th>
+                        <th>DNP</th>
+                        <th>ADD</th>
+                        <th>CO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>OD</strong></td>
+                        <td><input type="number" id="esfericoOD" placeholder="ESF" step="0.25"></td>
+                        <td><input type="number" id="cilindricoOD" placeholder="CIL" step="0.25"></td>
+                        <td><input type="number" id="eixoOD" placeholder="E" min="1" max="180"></td>
+                        <td><input type="number" id="dnpOD" placeholder="DNP" step="0.25" min="10" max="50"required></td>
+                        <td><input type="number" id="addOD" placeholder="ADD" step="0.25" min="0.25" max="3.50"required></td>
+                        <td><input type="number" id="coOD" placeholder="CO" min="10" max="40"required></td>
+                    </tr>
+                    <tr>
+                        <td><strong>OE</strong></td>
+                        <td><input type="number" id="esfericoOE" placeholder="ESF" step="0.25"></td>
+                        <td><input type="number" id="cilindricoOE" placeholder="CIL" step="0.25"></td>
+                        <td><input type="number" id="eixoOE" placeholder="Ei" min="1" max="180"></td>
+                        <td><input type="number" id="dnpOE" placeholder="DNP" step="0.25" min="10" max="50"required></td>
+                        <td><input type="number" id="addOE" placeholder="ADD" step="0.25" min="0.25" max="3.50"required></td>
+                        <td><input type="number" id="coOE" placeholder="CO" min="10" max="40"required></td>
+                    </tr>
+                </tbody>
+            </table><br>
+
+            <div class="form-group">
+                <label for="medico">Nome do Médico:</label>
+                <input type="text" id="medico" placeholder="Digite o nome do médico" pattern="[A-Za-zÀ-ÿ\s]+" maxlength="50">
+            </div>
+            <div class="form-group">
+                <label for="otica">Nome da Ótica:</label>
+                <select id="otica">
+                    <option value="ARCOVERDE">Arcoverde</option>
+                    <option value="ARCOVERDE EMPRESARIAL">Arcoverde Empresarial</option>
+                    <option value="ARCOVERDE AVENIDA">Arcoverde Avenida</option>
+                    <option value="ARCOVERDE TRADE">Arcoverde Trade</option>
+                    <option value="STILLUS">Stillus</option>
+                    <option value="CARUARU MATRIZ">Caruaru Matriz</option>
+                    <option value="CARUARU SANTA CRUZ">Caruaru Santa Cruz</option>
+                    <option value="ARCOVERDE SANTA CRUZ">Arcoverde Santa Cruz</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="data">Data:</label>
+                <input type="date" id="data" required>
+            </div>
+            <button type="button" onclick="printCertificate()">Gerar Certificado de Garantia</button>
+            <button type="button" onclick="document.getElementById('certificadoForm').reset()">Limpar Formulário</button>
+
+        </form>
+        
+        <div id="certificado"></div>
+    </div>
+</html>
